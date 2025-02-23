@@ -7,9 +7,11 @@ namespace DoublyLinkedListsAnton
     {
         static void Main(string[] args)
         {
+            // Pregunta al usuario si la lista será circular
             Console.Write("¿Deseas que la lista sea circular? (s/n): ");
             string respuesta = Console.ReadLine().ToLower();
 
+            // Se crea la lista doblemente enlazada, con opción circular según la respuesta del usuario
             DoublyLinkedList lista = new DoublyLinkedList(respuesta == "s");
 
             while (true)
@@ -20,104 +22,86 @@ namespace DoublyLinkedListsAnton
 
                 switch (opcion)
                 {
-                    case "1": // Append
+                    case "1": // Agregar al final
                         Console.Write("Ingresa el valor a agregar al final: ");
-                        string valorAppend = Console.ReadLine();
-                        lista.Append(valorAppend);
+                        lista.Append(Console.ReadLine());
                         Console.WriteLine("Elemento agregado al final.");
                         break;
 
-                    case "2": // Prepend
+                    case "2": // Agregar al inicio
                         Console.Write("Ingresa el valor a agregar al inicio: ");
-                        string valorPrepend = Console.ReadLine();
-                        lista.Prepend(valorPrepend);
+                        lista.Prepend(Console.ReadLine());
                         Console.WriteLine("Elemento agregado al inicio.");
                         break;
 
-                    case "3": // Insert
+                    case "3": // Insertar en un índice específico
                         Console.Write("Ingresa el índice donde insertar: ");
                         if (int.TryParse(Console.ReadLine(), out int indiceInsert))
                         {
                             Console.Write("Ingresa el valor a insertar: ");
-                            string valorInsert = Console.ReadLine();
-                            bool resultadoInsert = lista.Insert(indiceInsert, valorInsert);
+                            bool resultadoInsert = lista.Insert(indiceInsert, Console.ReadLine());
 
-                            if (resultadoInsert)
-                                Console.WriteLine($"Se insertó '{valorInsert}' en el índice {indiceInsert}.");
-                            else
-                                Console.WriteLine($"No se pudo insertar. Índice {indiceInsert} fuera de rango.");
+                            Console.WriteLine(resultadoInsert
+                                ? $"Se insertó en el índice {indiceInsert}."
+                                : $"No se pudo insertar. Índice {indiceInsert} fuera de rango.");
                         }
-                        else
-                        {
-                            Console.WriteLine("Índice inválido.");
-                        }
+                        else Console.WriteLine("Índice inválido.");
                         break;
 
-                    case "4": // Delete (por índice)
+                    case "4": // Eliminar por índice
                         Console.Write("Ingresa el índice a eliminar: ");
                         if (int.TryParse(Console.ReadLine(), out int indiceDelete))
                         {
-                            bool resultadoDelete = lista.Delete(indiceDelete);
-                            if (resultadoDelete)
-                                Console.WriteLine($"Se eliminó el elemento en el índice {indiceDelete}.");
-                            else
-                                Console.WriteLine($"No se pudo eliminar. Índice {indiceDelete} fuera de rango.");
+                            Console.WriteLine(lista.Delete(indiceDelete)
+                                ? $"Se eliminó el elemento en el índice {indiceDelete}."
+                                : $"No se pudo eliminar. Índice {indiceDelete} fuera de rango.");
                         }
-                        else
-                        {
-                            Console.WriteLine("Índice inválido.");
-                        }
+                        else Console.WriteLine("Índice inválido.");
                         break;
 
-                    case "5": // DeleteFirst
+                    case "5": // Eliminar primer elemento
                         Node borradoPrimero = lista.DeleteFirst();
-                        if (borradoPrimero != null)
-                            Console.WriteLine($"Se eliminó el primer elemento: {borradoPrimero.data}");
-                        else
-                            Console.WriteLine("La lista está vacía, no se pudo eliminar.");
+                        Console.WriteLine(borradoPrimero != null
+                            ? $"Se eliminó el primer elemento: {borradoPrimero.data}"
+                            : "La lista está vacía, no se pudo eliminar.");
                         break;
 
-                    case "6": // DeleteLast
+                    case "6": // Eliminar último elemento
                         Node borradoUltimo = lista.DeleteLast();
-                        if (borradoUltimo != null)
-                            Console.WriteLine($"Se eliminó el último elemento: {borradoUltimo.data}");
-                        else
-                            Console.WriteLine("La lista está vacía, no se pudo eliminar.");
+                        Console.WriteLine(borradoUltimo != null
+                            ? $"Se eliminó el último elemento: {borradoUltimo.data}"
+                            : "La lista está vacía, no se pudo eliminar.");
                         break;
 
-                    case "7": // PrintList
+                    case "7": // Imprimir lista
                         Console.WriteLine("Contenido de la lista:");
                         lista.PrintList();
                         break;
 
-                    case "8": // PrintListBackwards
+                    case "8": // Imprimir lista en orden inverso
                         Console.WriteLine("Contenido de la lista (en sentido inverso):");
                         lista.PrintListBackwards();
                         break;
 
-                    case "9": // GetLength
+                    case "9": // Obtener longitud de la lista
                         Console.WriteLine($"Longitud de la lista: {lista.GetLength()}");
                         break;
 
-                    case "10": // Set
+                    case "10": // Modificar un elemento por índice
                         Console.Write("Ingresa el índice que deseas modificar: ");
                         if (int.TryParse(Console.ReadLine(), out int indiceSet))
                         {
                             Console.Write("Ingresa el nuevo valor: ");
-                            string nuevoValor = Console.ReadLine();
-                            bool resultadoSet = lista.Set(indiceSet, nuevoValor);
-                            if (resultadoSet)
-                                Console.WriteLine($"Se actualizó el elemento en el índice {indiceSet} a '{nuevoValor}'.");
-                            else
-                                Console.WriteLine($"No se pudo actualizar. Índice {indiceSet} fuera de rango.");
+                            bool resultadoSet = lista.Set(indiceSet, Console.ReadLine());
+
+                            Console.WriteLine(resultadoSet
+                                ? $"Se actualizó el elemento en el índice {indiceSet}."
+                                : $"No se pudo actualizar. Índice {indiceSet} fuera de rango.");
                         }
-                        else
-                        {
-                            Console.WriteLine("Índice inválido.");
-                        }
+                        else Console.WriteLine("Índice inválido.");
                         break;
 
-                    case "0": // Salir
+                    case "0": // Salir del programa
                         Console.WriteLine("Saliendo del programa...");
                         return;
 
@@ -129,6 +113,8 @@ namespace DoublyLinkedListsAnton
                 Console.WriteLine();
             }
         }
+
+        // Muestra el menú de opciones en la consola
         static void MostrarMenu()
         {
             Console.WriteLine("=========================================");
