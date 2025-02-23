@@ -44,4 +44,4 @@ Además, se incluye un **programa de consola** que proporciona un **menú intera
 
 ## Cómo Ejecutar el Proyecto
 
-Descarga el último `DoublyLinkedListMenuInteractivo.exe` desde la página de [Releases](https://github.com/NuclearGecko74/doubly-linked-lists-anton/releases/tag/Release) y ejecútalo.
+Descarga el último `ExamenPracticoAnton.exe` desde la página de [Releases](https://github.com/NuclearGecko74/examenpractico-sd-anton/releases/tag/Release) y ejecútalo.
